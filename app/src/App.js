@@ -5,38 +5,37 @@ import {faImage, faThumbsDown, faMoneyCheckAlt, faSearchDollar, faThumbsUp} from
 
 
 class App extends Component {
-
+        //     {
+        //     "id": "100",
+        //     "Vendor": "Hankook",
+        //     "Amount": "$1800",
+        //     "Invoice": "1123",
+        //     "Date": "08/21/2019"
+        // },
+        // {
+        //     "id": "200",
+        //     "Vendor": "Hankook",
+        //     "Amount": "$1800",
+        //     "Invoice": "1123",
+        //     "Date": "08/21/2019"
+        // },
+        // {
+        //     "id": "300",
+        //     "Vendor": "Hankook",
+        //     "Amount": "$1800",
+        //     "Invoice": "1123",
+        //     "Date": "08/21/2019"
+        // },
+        // {
+        //     "id": "400",
+        //     "Vendor": "Hankook",
+        //     "Amount": "$1800",
+        //     "Invoice": "1123",
+        //     "Date": "08/21/2019"
+        // },
     state = { 
         isLoading: false,
-        invoices: [
-            {
-            "id": "100",
-            "Vendor": "Hankook",
-            "Amount": "$1800",
-            "Invoice": "1123",
-            "Date": "08/21/2019"
-        },
-        {
-            "id": "200",
-            "Vendor": "Hankook",
-            "Amount": "$1800",
-            "Invoice": "1123",
-            "Date": "08/21/2019"
-        },
-        {
-            "id": "300",
-            "Vendor": "Hankook",
-            "Amount": "$1800",
-            "Invoice": "1123",
-            "Date": "08/21/2019"
-        },
-        {
-            "id": "400",
-            "Vendor": "Hankook",
-            "Amount": "$1800",
-            "Invoice": "1123",
-            "Date": "08/21/2019"
-        },]
+        invoices: []
     }
 
     remove(id){
@@ -45,13 +44,18 @@ class App extends Component {
         this.setState({invoices : updatedInvoices})
     }
 
+    async componentDidMount(){
+        const response = await fetch('https://7u18ua5ub9.execute-api.us-east-1.amazonaws.com/Dev');
+        const body = await response.json();
+        this.setState({invoices: body, isLoading: false})
+    }
+
     render() {
         const isLoading = this.state.isLoading;
         const allinvoices = this.state.invoices;
 
             if(isLoading)
                 return(<div>Loading...</div>);
-
 
             let invoices = 
             allinvoices.map(invoice =>
@@ -82,17 +86,17 @@ class App extends Component {
                         <Table dark responsive striped bordered hover>
                             <thead>
                                 <tr>
-                                    <th>Vendor</th>
-                                    <th>Amount</th>
-                                    <th>Invoice #</th>
-                                    <th>Date</th>
-                                    <th colSpan="4">Actions</th>
-                                    <th>Image</th>
+                                    <th scope="row">Vendor</th>
+                                    <th scope="row">Amount</th>
+                                    <th scope="row">Invoice #</th>
+                                    <th scope="row">Date</th>
+                                    <th scope="row" colSpan="9">Actions</th>
+                                    <th scope="row">Image</th>
                                 </tr>
                                 
                             </thead>
                             <tbody>
-                                {this.state.invoices.length === 0 ? <td colSpan="9">All Caught Up!</td> : invoices}
+                                {this.state.invoices.length === 0 ? <td colSpan="4">All Caught Up!</td> : invoices}
                             </tbody>
                         </Table>
                     </div>
