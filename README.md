@@ -13,3 +13,5 @@ http://invoice-processing-aws-dr.s3-website-us-east-1.amazonaws.com/
 ## Future development
 I would love to set up a pipeline using additional AWS services
 
+<img src="/screenshots/fetchDDBdataViaApiGateway.png" alt="screenshoot" title="Client">
+<img src="/screenshots/reactFrontEndS3.png" alt="screenshoot" title="Client">
